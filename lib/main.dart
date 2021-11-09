@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doitf/second_page.dart';
 import 'package:doitf/state_main.dart';
 import 'package:doitf/third.dart';
@@ -153,6 +154,26 @@ class MyHomePage extends StatelessWidget {
                 )
               ],
             ),
+            Row(
+              children: [
+                RaisedButton(
+                  child: Text("fireread"),
+                  onPressed: fireread,
+                ),
+                RaisedButton(
+                  child: Text("fireadd"),
+                  onPressed: fireadd,
+                ),
+                RaisedButton(
+                  child: Text("fireupdate"),
+                  onPressed: fireupdate,
+                ),
+                RaisedButton(
+                  child: Text("firedel"),
+                  onPressed: firedel,
+                ),
+              ],
+            ),
             GestureDetector(
               child: Text("snackbar / gdetec"),
               onTap: () {
@@ -200,5 +221,33 @@ class MyHomePage extends StatelessWidget {
             icon: Icon(Icons.notifications), title: Text("notif")),
       ]),
     );
+  }
+  void fireadd(){
+    FirebaseFirestore.instance
+        .collection('fsample')
+        .add({'title':"testtitle",'content':"testContent"});
+  }
+  void fireread(){
+    FirebaseFirestore.instance
+        .collection('fsample')
+        .doc('2wJBmKGWKRwvTmjSbKFF')
+        .get()
+        .then((doc) {
+      print(doc.get('title'));
+      print(doc.get('content'));
+    });
+  }
+  void fireupdate(){
+    FirebaseFirestore.instance
+        .collection('fsample')
+        .doc('2wJBmKGWKRwvTmjSbKFF')
+        .update({'title':'updatetitle'});
+
+  }
+  void firedel(){
+    FirebaseFirestore.instance
+        .collection('fsample')
+        .doc("2wJBmKGWKRwvTmjSbKFF")
+        .delete();
   }
 }
