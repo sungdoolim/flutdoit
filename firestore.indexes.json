@@ -1,0 +1,51 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "hair_feed",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "customid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "count",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "hair_review",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "designer_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "count",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "hair_review",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "designer_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "count",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

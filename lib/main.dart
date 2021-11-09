@@ -15,12 +15,22 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
+
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
+  @override
+  MyHomePage createState()=>MyHomePage();
   // This widget is the root of your application.
+
+
+
+
+}
+
+class MyHomePage extends State<MyApp> {
+  var title="title";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,17 +38,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+      home: Scaffold(
       appBar: AppBar(
-        title: Text('제목'),
+        title: Text(title),
       ),
       body: Builder(builder: (context) {
         return Center(
@@ -220,6 +222,7 @@ class MyHomePage extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.notifications), title: Text("notif")),
       ]),
+    )
     );
   }
   void fireadd(){
@@ -233,6 +236,12 @@ class MyHomePage extends StatelessWidget {
         .doc('2wJBmKGWKRwvTmjSbKFF')
         .get()
         .then((doc) {
+          print(title);
+          setState(() {
+
+            title=doc.get('title');
+          });
+          print(title);
       print(doc.get('title'));
       print(doc.get('content'));
     });
