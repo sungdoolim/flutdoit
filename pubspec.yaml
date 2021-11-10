@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.12.0+2
   cloud_firestore: ^1.0.0
   firebase_web: ^5.0.9
 
