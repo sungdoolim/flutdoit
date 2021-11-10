@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 
+import 'complex/ComplexUI.dart';
 import 'fifth.dart';
 import 'forth.dart';
 
@@ -153,7 +154,14 @@ class MyHomePage extends State<MyApp> {
 
                     Scaffold.of(context).showSnackBar(snac);
                   },
-                )
+                ),
+                RaisedButton(
+                  child:Text("고급 화면 만들기"),
+                  onPressed: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => ComplexUI()));
+                  },
+                ),
               ],
             ),
             Row(
