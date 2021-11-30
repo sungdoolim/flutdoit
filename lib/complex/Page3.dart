@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'TodoListPage.dart';
+
 
 class Page3 extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Text("내정보", style:TextStyle(fontSize:40))
+    return MaterialApp(
+      title:"할일 관리",
+      theme : ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home:TodoListPage(),
     );
   }
 }
+
