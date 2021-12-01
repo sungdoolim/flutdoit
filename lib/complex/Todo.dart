@@ -1,6 +1,6 @@
 class Todo{
   bool isDone=false;
-  String title;
+  String title="";
   String content="";
   String id="";
   int index=0;
@@ -9,5 +9,7 @@ class Todo{
   String due="";
   int rest=0;
   String url="";
-  Todo(this.title);
+  String place="";
+  Todo(this.place,this.content,{ischecked});
+
 }
