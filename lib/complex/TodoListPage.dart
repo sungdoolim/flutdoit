@@ -13,13 +13,16 @@ class _TodoListPageState extends State<TodoListPage> {
   final _items = <Todo>[];
   var _todoController = TextEditingController();
   var _todoController2 = TextEditingController();
+  var ck=false;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
-        title: Text('남은 할 일'),
+        title: Text('남은 할 일')
+        ,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -29,11 +32,17 @@ class _TodoListPageState extends State<TodoListPage> {
               Expanded(
                 child: TextField(
                   controller: _todoController,
+                  decoration: InputDecoration(
+                    labelText:"place",
+                  ),
                 ),
               ),
               Expanded(
                 child: TextField(
                   controller: _todoController2,
+                  decoration: InputDecoration(
+                    labelText:"content",
+                  ),
                 ),
               ),
               RaisedButton(
@@ -42,10 +51,16 @@ class _TodoListPageState extends State<TodoListPage> {
                   _addTodo(Todo(_todoController.text,_todoController2.text, ischecked: false));
                 },
               ),
+              RaisedButton(
+                child:Text('check'),
+                onPressed: (){setState(() {
+                  ck=!ck;
+                });},
+              )
             ],
           ),
           StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('ourlist').snapshots(),
+            stream: FirebaseFirestore.instance.collection('ourlist').where('ischecked',isEqualTo: ck).snapshots(),
             builder: (context, snapshot) {
               if(!snapshot.hasData){
                 return CircularProgressIndicator();
@@ -58,10 +73,7 @@ class _TodoListPageState extends State<TodoListPage> {
            //   print(ar.toString());
 
               return Expanded(
-                child: ListView(
-                  //children: _items.map((todo) => _buildItemWidget(todo)).toList(),
-                  children: documents.map((doc)=>_buildItemWidget(doc)).toList(),
-                ),
+                child: isCheck(ck,documents),
               );
 
             }
@@ -77,9 +89,18 @@ class _TodoListPageState extends State<TodoListPage> {
     _todoController2.dispose();
   }
 
+  ListView isCheck (bool ck,List documents){
+
+
+    return ListView(
+
+      children: documents.map((doc)=>_buildItemWidget(doc)).toList(),
+    );
+  }
   Widget _buildItemWidget(DocumentSnapshot dc) {
     final todo=Todo(dc['place'],dc['content'],ischecked: dc['ischecked']);
 
+  print(todo.place);
 
     return ListTile(
       onTap: () =>_toggleTodo(dc),
@@ -119,7 +140,7 @@ class _TodoListPageState extends State<TodoListPage> {
   }
 
   void _addTodo(Todo todo) {
-    FirebaseFirestore.instance.collection("ourlist").add({"place":todo.place,"content":todo.content});
+    FirebaseFirestore.instance.collection("ourlist").add({"place":todo.place,"content":todo.content,"ischecked":false});
     _todoController.text='';
     _todoController2.text='';
 

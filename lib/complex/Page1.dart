@@ -115,7 +115,7 @@ class Page1 extends StatelessWidget {
     return CarouselSlider(
 
       options: CarouselOptions(height: 150.0,autoPlay: true),
-      items: ["res/img/iu1.jpg", "res/img/iu2.jpg", "res/img/iu3.jpg"].map((i) {
+      items: ["res/img/bear.jpg", "res/img/seahorse.jpg", "res/img/turtle.jpg"].map((i) {
         return Builder(
           builder: (BuildContext context) {
             return InkWell(
