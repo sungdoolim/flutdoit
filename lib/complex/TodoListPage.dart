@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'Detail.dart';
 import 'Todo.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -103,7 +104,7 @@ class _TodoListPageState extends State<TodoListPage> {
   print(todo.place);
 
     return ListTile(
-      onTap: () =>_toggleTodo(dc),
+      onTap: () =>navToDetail(dc),//_toggleTodo(dc),
      // onTap: () =>_toggleTodo(todo_tmp),
       title: Text(
         todo.place+" / "+todo.content,
@@ -143,7 +144,14 @@ class _TodoListPageState extends State<TodoListPage> {
     FirebaseFirestore.instance.collection("ourlist").add({"place":todo.place,"content":todo.content,"ischecked":false});
     _todoController.text='';
     _todoController2.text='';
-
+  }
+  void navToDetail(DocumentSnapshot dc){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Detail(dc: dc),
+      ),
+    );
   }
   void _addTodo_tmp(Todo todo) {
     setState(() {
