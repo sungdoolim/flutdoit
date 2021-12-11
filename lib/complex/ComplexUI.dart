@@ -33,19 +33,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _index = 0;
-  var _pages = [Page1(), Page2(), Page3()];
+  var _index = 2;
+  var _pages = [Page1(), Page2(),Page3(1),Page3(-1),Page3(0),];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("복잡 ui", style: TextStyle(color: Colors.black)),
+        title: Text("❤loveList💖", style: TextStyle(color: Colors.black)),
         actions: [
           IconButton(
             icon: Icon(Icons.add, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _index=0;
+              });
+            },
           )
         ],
       ),
@@ -62,11 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         currentIndex: _index,
         items: [
-          BottomNavigationBarItem(title: Text("홈"), icon: Icon(Icons.home)),
+
           BottomNavigationBarItem(
-              title: Text("이용서비스"), icon: Icon(Icons.assignment)),
+              title: Text("Ck"), icon: Icon(Icons.account_circle)),
           BottomNavigationBarItem(
-              title: Text("내정보"), icon: Icon(Icons.account_circle)),
+              title: Text("nonCk"), icon: Icon(Icons.account_circle)),
+          BottomNavigationBarItem(
+              title: Text("allCk"), icon: Icon(Icons.account_circle)),
         ],
       ),
     );
