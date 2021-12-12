@@ -5,12 +5,24 @@ import 'package:carousel_slider/carousel_slider.dart';
 class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [_buildTop(context), _buildMiddle(context), _buildBottom(context)],
+    return MaterialApp(
+      home: Scaffold(
+        body: Builder(
+          builder: (context) {
+
+            return ListView(
+              children: [_buildTop(context), _buildMiddle(context), _buildBottom(context)],
+            );
+          }
+        ),
+      ),
     );
+
   }
 
+
   Widget _buildTop(context) {
+
     return Padding(
       padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: Column(

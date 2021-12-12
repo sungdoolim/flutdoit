@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _index = 2;
-  var _pages = [Page1(), Page2(),Page3(1),Page3(-1),Page3(0),];
+  var _pages = [Page3(1),Page3(-1),Page3(0)];
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.add, color: Colors.black),
             onPressed: () {
               setState(() {
-                _index=0;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Page1(),
+                  ),
+                );
               });
             },
           )
