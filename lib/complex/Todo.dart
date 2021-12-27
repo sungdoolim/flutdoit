@@ -10,6 +10,6 @@ class Todo{
   int rest=0;
   String url="";
   String place="";
-  Todo(this.place,this.content,{ischecked});
+  Todo(this.place,this.content,{required this.ischecked});
 
 }

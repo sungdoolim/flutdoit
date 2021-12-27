@@ -29,38 +29,53 @@ class _NewContentState extends State<NewContent>{
 
     return Scaffold(
 
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child:Column(
-          children: [TextField(
-            controller: placeCtr,
-
-            decoration: InputDecoration(
-              labelText: "어디서??",
-
-              border: OutlineInputBorder(),
-            ),
-          ),
-            TextField(
-              controller: contentCtr,
-
-              decoration: InputDecoration(
-                labelText: "뭐해???????",
-                border: OutlineInputBorder(),
-              ),
-            ),
-
-            RaisedButton(
-              child: Text("수정"),
-              onPressed: (){
-                insertFstore();
-                Navigator.pop(context);// 뒤로 가기
-              },
-            )
-
-          ],
+      body: Column(
+        children: [
+          SizedBox(
+            width: 150,
+            height: 50
         ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child:Column(
+              children: [TextField(
+                controller: placeCtr,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
 
+                decoration: InputDecoration(
+                  labelText: "어디서??",
+
+                  border: OutlineInputBorder(),
+                ),
+              ),
+                SizedBox(
+                    height:50
+                ),
+                TextField(
+                  controller: contentCtr,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+
+                  decoration: InputDecoration(
+                    labelText: "뭐해???????",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+
+                RaisedButton(
+                  child: Text("저장"),
+                  onPressed: (){
+                    insertFstore();
+                    Navigator.pop(context);// 뒤로 가기
+                  },
+                )
+
+              ],
+            ),
+
+          ),
+        ],
       ),
     );
   }

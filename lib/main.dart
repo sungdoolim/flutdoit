@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doitf/second_page.dart';
 import 'package:doitf/state_main.dart';
 import 'package:doitf/third.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 
@@ -15,6 +17,7 @@ import 'forth.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //runApp(ComplexUI());
   runApp(const MyApp());
 
 }
@@ -32,6 +35,16 @@ class MyApp extends StatefulWidget {
 
 class MyHomePage extends State<MyApp> {
   var title="title";
+
+  final FirebaseMessaging fcm=FirebaseMessaging();
+
+
+  @override
+  void initState() {
+
+    fcmTest();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -110,6 +123,7 @@ class MyHomePage extends State<MyApp> {
                               FlatButton(
                                 child: Text("ok"),
                                 onPressed: () {
+
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -233,6 +247,23 @@ class MyHomePage extends State<MyApp> {
     )
     );
   }
+  void fcmTest(){
+    fcm.configure(
+        onMessage: (Map<String, dynamic> message) async {
+          print("onMessage: $message");
+        },
+        onResume: (Map<String, dynamic> message) async {
+          print("onResume: $message");
+        },
+        onLaunch: (Map<String, dynamic> message) async {
+          print("onLaunch: $message");
+        }
+    );
+    fcm.getToken().then((String token){
+      print('token : $token');
+    });
+  }
+
   void fireadd(){
     FirebaseFirestore.instance
         .collection('fsample')

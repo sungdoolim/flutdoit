@@ -45,6 +45,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+	{
+      "collectionGroup": "ourlist",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ischecked",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "index",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'Detail.dart';
 import 'NewContent.dart';
@@ -10,6 +11,7 @@ import 'package:device_info/device_info.dart';
 class TodoListPage extends StatefulWidget {
 
   static String modelNm="";
+
   int v;   // 0 , 1, -1
 
   TodoListPage(this.v);
@@ -20,6 +22,7 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   final _items = <Todo>[];
 
+
   List _data=<dynamic>[];
   var _todoController = TextEditingController();
   var _todoController2 = TextEditingController();
@@ -29,6 +32,7 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   void initState() {
     getDeviceInfo();
+
   }
 
   @override
@@ -43,7 +47,7 @@ class _TodoListPageState extends State<TodoListPage> {
             child: Column(children: [
               Row(
                 children: [
-                  Expanded(
+/*                  Expanded(
                     child: TextField(
                       controller: _todoController,
                       decoration: InputDecoration(
@@ -58,7 +62,7 @@ class _TodoListPageState extends State<TodoListPage> {
                         labelText: "content",
                       ),
                     ),
-                  ),
+                  ),*/
                   RaisedButton(
                     child: Text('추가'),
                     onPressed: () {
@@ -66,7 +70,8 @@ class _TodoListPageState extends State<TodoListPage> {
                           ischecked: false));
                     },
                   ),
-                  RaisedButton(
+
+/*                  RaisedButton(
                     child: Text('check'),
                     onPressed: () {
                       setState(() {
@@ -81,7 +86,7 @@ class _TodoListPageState extends State<TodoListPage> {
                       print(TodoListPage.modelNm);
 
                     },
-                  ),
+                  ),*/
                 ],
               ),
               StreamBuilder<QuerySnapshot>(
@@ -109,6 +114,7 @@ class _TodoListPageState extends State<TodoListPage> {
       ),
     );
   }
+
 
   @override
   void dispose() {
@@ -148,13 +154,13 @@ class _TodoListPageState extends State<TodoListPage> {
   Widget _buildItemWidget(DocumentSnapshot dc) {
     final todo = Todo(dc['place'], dc['content'], ischecked: dc['ischecked']);
     todo.index = dc['index'];
-    //print(todo.place);
+  //  print(todo.ischecked);
 
     return ListTile(
       onTap: () => navToDetail(dc), //_toggleTodo(dc),
       // onTap: () =>_toggleTodo(todo_tmp),
       title: Text(
-        todo.place + " / " + todo.content + " / " + todo.index.toString(),
+        "어디서         : "+todo.place + " \n 머 먹으까? : " + todo.content + " \n "+todo.index.toString(),
         style: dc['id']=="내꿍"
             ? TextStyle(
           color:Colors.lightBlue,
@@ -166,7 +172,7 @@ class _TodoListPageState extends State<TodoListPage> {
         ), // 3항 연산자
       ),
       trailing: IconButton(
-        icon: Icon(Icons.delete_forever),
+        icon: todo.ischecked? Icon(Icons.check_box_outlined):Icon(Icons.check_box_outline_blank),
         onPressed: () => _deleteTodo(dc),
         //_deleteTodo_tmp(todo),
       ),);
@@ -298,4 +304,6 @@ class _TodoListPageState extends State<TodoListPage> {
       device.identifierForVendor,
     ];
   }
+
+
 }

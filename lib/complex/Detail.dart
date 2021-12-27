@@ -39,68 +39,84 @@ class _DetailState extends State<Detail>{
 
     return Scaffold(
 
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child:Column(
-          children: [TextField(
-            controller: placeCtr,
-
-            decoration: InputDecoration(
-              labelText: widget.dc['place'],
-
-              border: OutlineInputBorder(),
-            ),
-          ),
-          TextField(
-            controller: contentCtr,
-
-            decoration: InputDecoration(
-              labelText: widget.dc['content'],
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Row(
-            children: [
-              Text("완료! : "),
-              Checkbox(
-                value : isChecked,
-                onChanged:(value){
-                  setState(() {
-                    isChecked=value;
-                  });
-                }
-              )
-            ],
-          ),
-          Row(
-            children: [
-              RaisedButton(
-                child:Text("삭제하나요오오오오"),
-                onPressed: (){
-                  deleteFstore();
-                },
-              ),
-              RaisedButton(
-                child: Text("수정"),
-                onPressed: (){
-                  if(isChecked!=widget.dc["ischecked"]){
-                    var fist=FirebaseFirestore.instance.collection("ourlist").orderBy("index",descending:true).limit(1).get();
-                    fist.then((k){
-                      idx=k.docs.first.get("index");
-                      updateFstore();
-                    });
-                  }else{
-                    updateFstore();
-                  }
-                  Navigator.pop(context);// 뒤로 가기
-                },
-              )
-            ],
-          )
-
-          ],
+      body: Column(
+        children: [
+          SizedBox(
+          width: 150,
+          height: 50
         ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child:Column(
+              children: [
+                TextField(
+                controller: placeCtr,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
 
+                decoration: InputDecoration(
+                  labelText: "장소를 적어주세여 ",
+
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(
+                height:50
+              ),
+              TextField(
+                controller: contentCtr,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  labelText: "머 할꺼에여?? 머 먹나여?????",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              Row(
+                children: [
+                  Text("완료! : "),
+                  Checkbox(
+                    value : isChecked,
+                    onChanged:(value){
+                      setState(() {
+                        isChecked=value;
+                      });
+                    }
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  RaisedButton(
+                    child:Text("삭제하나요오오오오"),
+                    onPressed: (){
+                      deleteFstore();
+                    },
+                  ),
+                  RaisedButton(
+                    child: Text("수정"),
+                    onPressed: (){
+                      if(isChecked!=widget.dc["ischecked"]){
+                        var fist=FirebaseFirestore.instance.collection("ourlist").orderBy("index",descending:true).limit(1).get();
+                        fist.then((k){
+                          idx=k.docs.first.get("index")+1;
+                          updateFstore();
+                        });
+                      }else{
+                        idx=widget.dc['index'];
+                        updateFstore();
+                      }
+                      Navigator.pop(context);// 뒤로 가기
+                    },
+                  )
+                ],
+              )
+
+              ],
+            ),
+
+          ),
+        ],
       ),
     );
   }
@@ -109,13 +125,49 @@ class _DetailState extends State<Detail>{
         { 'content':contentCtr.text,
           'place':placeCtr.text,
           'ischecked':isChecked,
+          'index':idx
         }
     );
   }
   void deleteFstore(){
-      FirebaseFirestore.instance.collection("ourlist").doc(widget.dc.id).delete();
-      Navigator.pop(context);// 뒤로 가기
-  }
+    var delck=false;
+    var k=showDialog(
+      context: context,
 
+      builder: (BuildContext context) {
+
+        return AlertDialog(
+          title: Text("지워???"),
+          content: SizedBox(
+            height: 100,
+            child: Column(
+              children: [Text("왜지우까~"), Text("알수가 옴내에에ㅔ")],
+            ),
+          ),
+          actions: [
+            FlatButton(
+              child: Text("진짜 지운댜????"),
+              onPressed: () {
+                delck=true;
+                FirebaseFirestore.instance.collection("ourlist").doc(widget.dc.id).delete();
+                Navigator.pop(context);// 뒤로 가기
+              },
+            ),
+            FlatButton(
+              child: Text("안지울랭~"),
+              onPressed: () {
+                Navigator.pop(context);// 뒤로 가기
+              },
+            ),
+          ],
+        );
+      },
+    ).then((value){
+      print(delck);
+
+      Navigator.pop(context);
+    });
+
+  }
 
 }

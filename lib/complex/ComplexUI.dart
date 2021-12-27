@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'Page1.dart';
@@ -13,6 +14,10 @@ void main() async{
 }
 
 class ComplexUI extends StatelessWidget {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,6 +28,7 @@ class ComplexUI extends StatelessWidget {
       home: MyHomePage(),
     );
   }
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -33,8 +39,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _index = 2;
+  var _index = 1;
   var _pages = [Page3(1),Page3(-1),Page3(0)];
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,4 +89,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
