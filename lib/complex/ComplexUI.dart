@@ -41,7 +41,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _index = 1;
   var _pages = [Page3(1),Page3(-1),Page3(0)];
+  final FirebaseMessaging fcm=FirebaseMessaging();
 
+
+  @override
+  void initState() {
+    fcmTest();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,5 +95,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
+void fcmTest(){
+    fcm.configure(
+        onMessage: (Map<String, dynamic> message) async {
+          print("onMessage: $message");
+        },
+        onResume: (Map<String, dynamic> message) async {
+          print("onResume: $message");
+        },
+        onLaunch: (Map<String, dynamic> message) async {
+          print("onLaunch: $message");
+        }
+    );
+    fcm.getToken().then((String token){
+      print('token : $token');
+    });
+  }
 }

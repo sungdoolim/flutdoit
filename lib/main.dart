@@ -17,8 +17,8 @@ import 'forth.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //runApp(ComplexUI());
-  runApp(const MyApp());
+  runApp(ComplexUI());
+  //runApp(const MyApp());
 
 }
 
@@ -36,13 +36,13 @@ class MyApp extends StatefulWidget {
 class MyHomePage extends State<MyApp> {
   var title="title";
 
-  final FirebaseMessaging fcm=FirebaseMessaging();
+  // FirebaseMessaging fcm=FirebaseMessaging();
 
 
   @override
   void initState() {
 
-    fcmTest();
+    //fcmTest();
   }
 
   @override
@@ -247,7 +247,7 @@ class MyHomePage extends State<MyApp> {
     )
     );
   }
-  void fcmTest(){
+  /*void fcmTest(){
     fcm.configure(
         onMessage: (Map<String, dynamic> message) async {
           print("onMessage: $message");
@@ -262,7 +262,7 @@ class MyHomePage extends State<MyApp> {
     fcm.getToken().then((String token){
       print('token : $token');
     });
-  }
+  }*/
 
   void fireadd(){
     FirebaseFirestore.instance
