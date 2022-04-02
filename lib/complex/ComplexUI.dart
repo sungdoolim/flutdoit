@@ -1,4 +1,4 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'Page1.dart';
@@ -41,7 +41,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _index = 1;
   var _pages = [Page3(1),Page3(-1),Page3(0)];
-  final FirebaseMessaging fcm=FirebaseMessaging();
+ // final FirebaseMessaging fcm=FirebaseMessaging();
 
 
   @override
@@ -86,29 +86,29 @@ class _MyHomePageState extends State<MyHomePage> {
         items: [
 
           BottomNavigationBarItem(
-              title: Text("Ck"), icon: Icon(Icons.account_circle)),
+               icon: Icon(Icons.account_circle),label:"Ck"),
           BottomNavigationBarItem(
-              title: Text("nonCk"), icon: Icon(Icons.account_circle)),
+               icon: Icon(Icons.account_circle),label:"nonCk"),
           BottomNavigationBarItem(
-              title: Text("allCk"), icon: Icon(Icons.account_circle)),
+              icon: Icon(Icons.account_circle),label:"allCk"),
         ],
       ),
     );
   }
 void fcmTest(){
-    fcm.configure(
-        onMessage: (Map<String, dynamic> message) async {
-          print("onMessage: $message");
-        },
-        onResume: (Map<String, dynamic> message) async {
-          print("onResume: $message");
-        },
-        onLaunch: (Map<String, dynamic> message) async {
-          print("onLaunch: $message");
-        }
-    );
-    fcm.getToken().then((String token){
-      print('token : $token');
-    });
+    // fcm.configure(
+    //     onMessage: (Map<String, dynamic> message) async {
+    //       print("onMessage: $message");
+    //     },
+    //     onResume: (Map<String, dynamic> message) async {
+    //       print("onResume: $message");
+    //     },
+    //     onLaunch: (Map<String, dynamic> message) async {
+    //       print("onLaunch: $message");
+    //     }
+    // );
+    // fcm.getToken().then((String token){
+    //   print('token : $token');
+    // });
   }
 }

@@ -236,13 +236,12 @@ class MyHomePage extends State<MyApp> {
       }),
       bottomNavigationBar: BottomNavigationBar(items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text("home"),
+          icon: Icon(Icons.home)
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.person), title: Text("person")),
+            icon: Icon(Icons.person),),
         BottomNavigationBarItem(
-            icon: Icon(Icons.notifications), title: Text("notif")),
+            icon: Icon(Icons.notifications),),
       ]),
     )
     );
